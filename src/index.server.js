@@ -16,7 +16,7 @@ app.use("/api/user", userRouter); // Mount user routes
 // MongoDB Connection
 mongoose
   .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true, // Optional but recommended for older MongoDB versions
+    // useNewUrlParser: true, // Optional but recommended for older MongoDB versions
     useUnifiedTopology: true,
   })
   .then(() => {
