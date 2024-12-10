@@ -27,6 +27,7 @@ mongoose
   });
 
 // Start the server
+app.get("/api", (req, res) => res.send("Express on Vercel"));
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
