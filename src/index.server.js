@@ -2,32 +2,25 @@ const express = require("express");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const userRouter = require("./routes/user"); // Import the user router
+const userRouter = require("./routes/user");
 
 const app = express();
-dotenv.config(); // Load environment variables
+dotenv.config();
 
-// Middleware
-app.use(bodyParser.json()); // Parse JSON requests
+app.use(bodyParser.json());
 
-// Routes
-app.use("/api/user", userRouter); // Mount user routes
-
-// MongoDB Connection
 mongoose
-  .connect(process.env.MONGO_URI, {
-    // useNewUrlParser: true, // Optional but recommended for older MongoDB versions
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("Connected to MongoDB");
   })
   .catch((error) => {
     console.error("Error connecting to MongoDB:", error.message);
   });
+app.use(express.json());
+app.use("/api", userRouter);
 
 // Start the server
-app.get("/api", (req, res) => res.send("Express on Vercel"));
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
