@@ -17,6 +17,9 @@ mongoose
   .catch((error) => {
     console.error("Error connecting to MongoDB:", error.message);
   });
+
+
+  
 app.use(express.json());
 app.use("/api", userRouter);
 
