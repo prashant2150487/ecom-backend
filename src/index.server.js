@@ -18,10 +18,11 @@ mongoose
     console.error("Error connecting to MongoDB:", error.message);
   });
 
-
-  
 app.use(express.json());
 app.use("/api", userRouter);
+app.get("/api", (req, res) => {
+  res.send("Hello, World! Welcome to my Node.js server.");
+});
 
 // Start the server
 app.listen(process.env.PORT, () => {
