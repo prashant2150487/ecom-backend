@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const userRouter = require("./routes/user");
+const userRouter = require("./routes/auth.js");
 
 const app = express();
 dotenv.config();
