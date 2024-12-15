@@ -1,4 +1,4 @@
-const User = require("../models/user");
+const User = require("../../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 // const shortid = require("shortid");
@@ -8,7 +8,7 @@ exports.signup = async (req, res) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email: req.body.email }).exec();
     if (existingUser) {
-      return res.status(400).json({ error: "User already registered" });
+      return res.status(400).json({ error: "Admin is already registered" });
     }
 
     const { firstName, lastName, email, password } = req.body;
@@ -25,6 +25,7 @@ exports.signup = async (req, res) => {
       email,
       hash_password,
       username: req.firstName + Math.random().toString(),
+      role: "admin",
     });
 
     const savedUser = await newUser.save();
@@ -33,6 +34,7 @@ exports.signup = async (req, res) => {
     console.log("Signup successful");
     return res.status(201).json({
       // token,
+      mssage: "Admin created successfully",
       user: { _id, firstName, lastName, email, role, fullName },
     });
   } catch (error) {
@@ -56,8 +58,16 @@ exports.signin = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const isMatch = await bcrypt.compare(password, user.hash_password);
-    if (!isMatch) {
+    // const isMatch =
+    //   (await bcrypt.compare(password, user.hash_password)) &&
+    //   user.role === "admin";
+    // if (!isMatch) {
+    //   return res.status(401).json({ error: "Invalid credentials" });
+    // }
+
+    // Check password match and ensure role is admin
+    const isPasswordMatch = await bcrypt.compare(password, user.hash_password);
+    if (!isPasswordMatch || user.role !== "admin") {
       return res.status(401).json({ error: "Invalid credentials" });
     }
 
