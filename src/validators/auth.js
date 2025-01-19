@@ -9,6 +9,13 @@ exports.validateSignUpRequest = [
     .withMessage("Password must be at least 6 characters long"),
 ];
 
+exports.validateSignInRequest = [
+  check("email").isEmail().withMessage("Invalid email"),
+  check("password")
+    .isLength({ min: 6 })
+    .withMessage("Password must be at least 6 characters long"),
+];
+
 exports.isRequestValidated = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.array().length > 0) {
