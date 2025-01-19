@@ -1,10 +1,14 @@
 const express = require("express");
-const { signup, signin} = require("../../controller/admin/auth");
+const { signup, signin } = require("../../controller/admin/auth");
+const {
+  isRequestValidated,
+  validateSignUpRequest,
+} = require("../../validators/auth");
 const router = express.Router();
 // const User = require("../models/user");
 
 // Signin route
-router.post("/admin/signup", signup);
+router.post("/admin/signup", validateSignUpRequest, isRequestValidated, signup);
 router.post("/admin/signin", signin);
 
 // Profile route

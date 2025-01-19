@@ -1,10 +1,12 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 // const shortid = require("shortid");
 
 exports.signup = async (req, res) => {
   try {
+    
     // Check if user already exists
     const existingUser = await User.findOne({ email: req.body.email }).exec();
     if (existingUser) {
