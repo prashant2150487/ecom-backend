@@ -58,12 +58,7 @@ exports.signin = async (req, res) => {
       return res.status(404).json({ error: "User not found" });
     }
 
-    // const isMatch =
-    //   (await bcrypt.compare(password, user.hash_password)) &&
-    //   user.role === "admin";
-    // if (!isMatch) {
-    //   return res.status(401).json({ error: "Invalid credentials" });
-    // }
+   
 
     // Check password match and ensure role is admin
     const isPasswordMatch = await bcrypt.compare(password, user.hash_password);

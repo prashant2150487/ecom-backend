@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+const mongoose = require("mongoose");
 
 const categorySchema = new mongoose.Schema(
   {
@@ -13,11 +13,14 @@ const categorySchema = new mongoose.Schema(
       unique: true,
     },
     parentId: {
-      type: string,
+      type: String,
     },
   },
   {
-    timeseries: true,
+    timestamps: true,
   }
 );
-module.exports = mongoose.model("Category", categorySchema);
+const Category = mongoose.model("Category", categorySchema);
+
+module.exports = Category;
+  
