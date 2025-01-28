@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 //routes
 
@@ -22,12 +23,12 @@ mongoose
 
 // Middleware
 app.use(express.json());
+app.use(cors());
 
 // Routes
 
 app.use("/api", authRouter);
 app.use("/api", adminRouter);
-app.use("/api", categoryRouter);
 app.use("/api", categoryRouter);
 app.get("/api", (req, res) => {
   res.send("Hello, World! Welcome to my Node.js server.");
